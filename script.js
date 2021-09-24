@@ -35,7 +35,10 @@ for (let i = 0; i < n*n / 50; i++) {
       matrix[randomX][randomY] = 2
       arrX.push(randomX)
       arrY.push(randomY)
-      if(k >  n*n / 4){break;}
+      if(k >  n*n / 4)
+      {
+        break;
+      }
     }
   } 
 }
@@ -45,7 +48,10 @@ for (let i = 0; i < n*n / 80; i++) {
   for(let k = 0; k < arrX.length; k++){
     if(arrX[k] != randomX && arrY[k] != randomY){
       matrix[randomX][randomY] = 3
-      if(k >  n*n / 15){break;}
+      if(k >  n*n / 15)
+      {
+        break;
+      }
     }
   }
 }
@@ -55,7 +61,10 @@ for (let i = 0; i < n*n / 100; i++) {
   for(let k = 0; k < arrX.length; k++){
     if(arrX[k] != randomX && arrY[k] != randomY){
       matrix[randomX][randomY] = 5
-      if(k >  n*n / 15){break;}
+      if(k >  n*n / 15)
+      {
+        break;
+      }
     }
   }
 }
