@@ -8,7 +8,7 @@ let atArr = []
 
 
 let matrix = []
-let n = 40
+let n = 30
 let arrX = []
 let arrY = []
 let side = 20
