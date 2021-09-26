@@ -1,6 +1,6 @@
-var LivingCreature = require("./LiveForm");
+var LiveForm = require("./LiveForm");
 
-module.exports = class bombFinder extends LivingCreature{
+module.exports = class BombFinder extends LiveForm{
   constructor(x,y, index){
     super(x,y, index);
     this.directions = [];
@@ -24,12 +24,14 @@ module.exports = class bombFinder extends LivingCreature{
       return super.chooseCell(character);
   }
 
-  move() {
+  move() 
+  {
     let emptyCell1 = this.chooseCell(1) // [green cells]
     let emptyCell0 = this.chooseCell(0) // [empty Cells]  
     let arr = [...emptyCell1, ...emptyCell0] // [ 0, 1,0 1, 0, 1]
     let newCell = arr[Math.floor(Math.random() * arr.length)]; // [1]
-    if (newCell) {
+    if (newCell)
+    {
       let newX = newCell[0];
       let newY = newCell[1];
       if (matrix[newX][newY] == 0) {
@@ -43,10 +45,13 @@ module.exports = class bombFinder extends LivingCreature{
       this.y = newY
     }
   }
-  eat() {
+  eat()
+  {
     let emptyCell = this.chooseCell(4)
     let newCell = emptyCell[Math.floor(Math.random() * emptyCell.length)];
-    if (newCell) {
+    // console.log(newCell)
+    if (newCell)
+    {
       let newX = newCell[0];
       let newY = newCell[1];
       matrix[newX][newY] = 5;
@@ -58,6 +63,10 @@ module.exports = class bombFinder extends LivingCreature{
       }
       this.x = newX
       this.y = newY
+    }
+    else
+    {
+      this.move();
     }
   }
 }

@@ -1,6 +1,6 @@
 var LivingCreature = require("./LiveForm");
 
-module.exports = class atomicBomb extends LivingCreature{
+module.exports = class AtomicBomb extends LivingCreature{
 //class atomicBomb extends LivingCreature{
   boom() {
     // gazanikArr = [[1, 2], [2, 3], [3, 1]]
@@ -9,13 +9,12 @@ module.exports = class atomicBomb extends LivingCreature{
     this.y = gazanikArr[i].y
     matrix[this.x][this.y] = 4
     gazanikArr.splice(i, 1)
-    console.log('We lost "Gazanik" in cordinates {x:' + this.x + ',y:' + this.y + '}')
-    let bomb1 = new atomicBomb(this.x, this.y)
+    // console.log('We lost "Gazanik" in cordinates {x:' + this.x + ',y:' + this.y + '}')
+    let bomb1 = new AtomicBomb(this.x, this.y)
     atomicBombArr.push(bomb1)
   }
   
   gmp() {
-    console.log('gmp');
     
     for (let i in this.directions) {
       let x = this.directions[i][0];

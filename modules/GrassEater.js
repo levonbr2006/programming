@@ -31,7 +31,7 @@ module.exports = class GrassEater extends LiveForm {
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];
-            matrix[x][y] = 2;
+            matrix[y][x] = 2;
             let grassEater = new GrassEater(x, y);
             grassEaterArr.push(grassEater);
             this.life = 5;
@@ -47,8 +47,8 @@ module.exports = class GrassEater extends LiveForm {
             let x = newCell[0];
             let y = newCell[1];
 
-            matrix[x][y] = 2;
-            matrix[this.x][this.y] = 0;
+            matrix[y][x] = 2;
+            matrix[this.y][this.x] = 0;
 
             for (let i in grassArr) {
                 if (grassArr[i].x == x && grassArr[i].y == y) {
@@ -74,8 +74,8 @@ module.exports = class GrassEater extends LiveForm {
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];
-            matrix[x][y] = 2;
-            matrix[this.x][this.y] = 0;
+            matrix[y][x] = 2;
+            matrix[this.y][this.x] = 0;
             this.y = y;
             this.x = x;
         }
@@ -84,7 +84,7 @@ module.exports = class GrassEater extends LiveForm {
         }
     }
     die() {
-        matrix[this.x][this.y] = 0;
+        matrix[this.y][this.x] = 0;
 
         for (let i in grassEaterArr) {
             if (grassEaterArr[i].x == this.x && grassEaterArr[i].y == this.y) {

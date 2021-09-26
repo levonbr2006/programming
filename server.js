@@ -16,8 +16,6 @@ atomicArr = [];
 gazanikArr = [];
 bombFinderArr = [];
 matrix = [];
-grassHashiv = 0;
-var grassEaterHashiv;
 //! Setting global arrays  -- END
 
 
@@ -57,15 +55,15 @@ function matrixGenerator(matrixSize, grass, grassEater, atomicBomb, gazanik, bom
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(20, 20, 10, 5 , 15, 3);
+matrixGenerator(20, 10, 10, 5 , 15, 3);
 //console.log(matrix)
 //! Creating MATRIX -- END
 
 
 
 //! SERVER STUFF  --  START
+// const bombFinder = require("./modules/bombFinder.js");
 var express = require('express');
-const bombFinder = require("./modules/bombFinder.js");
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -84,9 +82,6 @@ function creatingObjects() {
             if (matrix[y][x] == 1) {
                 var grass = new Grass(x, y);
                 grassArr.push(grass);
-                grassHashiv++;
-                console.log(grassHashiv);
-                //grassHashiv++;
             }
             else if (matrix[y][x] == 2) {
                 var grassEater = new GrassEater(x, y);
@@ -94,13 +89,12 @@ function creatingObjects() {
                 
             }
             else if (matrix[y][x] == 4) {
-                var atomicBomb = new AtomicBomb(x, y);
+                var atomicBomb = new AtomicBomb (x, y);
                 atomicArr.push(atomicBomb);
             }
             else if (matrix[y][x] == 3) {
                 var gazanik = new Gazanik(x, y);
                 gazanikArr.push(gazanik);
-                //console.log(gazanikArr);
             }
             else if (matrix[y][x] == 5) {
                 var bombFinder = new BombFinder(x, y);
@@ -109,30 +103,23 @@ function creatingObjects() {
         }
     }
 }
-console.log(gazanikArr)
 creatingObjects();
 
 function game() {
     if (grassArr[0] !== undefined) {
         for (var i in grassArr) {
             grassArr[i].mul();
-            //console.log(grassArr.length);
-            //console.log(i);
-            //grassHashiv = grassArr.length;
         }
     }
     if (grassEaterArr[0] !== undefined) {
         for (var i in grassEaterArr) {
             grassEaterArr[i].eat();
-            grassEaterHashiv = i;
+
         }
     }
     if (gazanikArr[0] !== undefined) {
         for (var i in gazanikArr) {
             gazanikArr[i].eat();
-            //gazanikArr[i].move();
-            //gazanikArr[i].die();
-            //console.log(gazanikArr)
         }
     }/*
     if (atomicArr[0] !== undefined) {
@@ -147,37 +134,22 @@ function game() {
     if (bombFinderArr[0] !== undefined) {
         for (var i in bombFinderArr) {
             bombFinderArr[i].eat();
-            bombFinderArr[i].move();
-            //gazanikArr[i].move();
-            //gazanikArr[i].die();
-            //console.log(gazanikArr)
         }
     }
-    if (gazanikArr.length >= 14 ) {
-        var bomb = new AtomicBomb()
-        bomb.boom()
-        for(let i in  atomicBombArr){
-            atomicBombArr[i].gmp()
+        if (gazanikArr.length >= 14 ) {
+            var bomb = new AtomicBomb()
+            bomb.boom()
+            for(let i in  atomicBombArr){
+                atomicBombArr[i].gmp()
+            }
         }
-    }
-      
-    /*
-    if (grassEaterArr[0] !== undefined) {
-        for (var i in grassEaterArr) {
-            grassEaterArr[i].eat();
-        }
-    }
-    if (grassEaterArr[0] !== undefined) {
-        for (var i in grassEaterArr) {
-            grassEaterArr[i].eat();
-        }
-    }*/
 
     //! Object to send
     let sendData = {
         matrix: matrix,
-        grassCounter: grassHashiv,
-        grassEaterCounter:grassEaterHashiv
+        grassCounter: grassArr.length,
+        grassEaterCounter: grassEaterArr.length,
+        bombCounter: atomicBombArr.length
     }
 
     //! Send data over the socket to clients who listens "data"
