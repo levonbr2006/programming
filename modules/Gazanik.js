@@ -1,4 +1,10 @@
 var LivingCreature = require("./LiveForm");
+var Grass = require("./Grass.js");
+var GrassEater = require("./GrassEater.js");
+var AtomicBomb = require("./AtomicBomb.js");
+var Gazanik = require("./Gazanik.js");
+var BombFinder = require("./bombFinder.js");
+let random = require('./random');
 
 module.exports = class Gazanik extends LivingCreature {
   constructor(x, y, index) {
@@ -29,19 +35,35 @@ module.exports = class Gazanik extends LivingCreature {
     let emptyCell0 = this.chooseCell(0) // [empty Cells]  
     let arr = [...emptyCell1, ...emptyCell0] // [ 0, 1,0 1, 0, 1]
     let newCell = arr[Math.floor(Math.random() * arr.length)]; // [1]
-    if (newCell && this.energy >= 0) {
+    if(newCell){
+      var newX = newCell[0];
+      var newY = newCell[1];
+    }
+    let newGazanik = new Gazanik(newX, newY)
+    if (newCell && this.energy >= 0 && !this.ifExists(newGazanik)) {
       this.energy--;
-      let newX = newCell[0];
-      let newY = newCell[1];
-      if (matrix[newX][newY] == 0) {
+      if (matrix[newX][newY] == 0)
+      {
         matrix[newX][newY] = 3
         matrix[this.x][this.y] = 0;
-      } else if (matrix[newX][newY] == 1) {
+      }
+       else if (matrix[newX][newY] == 1)
+      {
         matrix[newX][newY] = 3
         matrix[this.x][this.y] = 1;
       }
+      for(let i in gazanikArr)
+      {
+        if(gazanikArr[i].x == this.x && gazanikArr[i].y == this.y)
+        {
+          gazanikArr[i].x == newX;
+          gazanikArr[i].y == newY;
+        }
+      }
       this.x = newX
       this.y = newY
+      // x = newX
+      // y = newY
     }
     else if (this.energy < 0) {
       this.die();
@@ -52,11 +74,14 @@ module.exports = class Gazanik extends LivingCreature {
     let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
     if (newCell && this.energy >= 15) {
       let newX = newCell[0];
-      let newY = newCell[1];
-      matrix[newX][newY] = 3;
+      let newY = newCell[1];     
       let newGazanik = new Gazanik(newX, newY)
-      gazanikArr.push(newGazanik);
-      this.energy = 8;
+      if(!this.ifExists(newGazanik))
+      {
+        matrix[newX][newY] = 3;
+        gazanikArr.push(newGazanik);
+        this.energy = 8;
+      }
     }
   }
   eat() {
@@ -88,5 +113,14 @@ module.exports = class Gazanik extends LivingCreature {
         gazanikArr.splice(i, 1);
       }
     }
+  }
+  ifExists(gazan)
+  {
+      for (let j = 0; j < gazanikArr.length; j++) {
+        if (gazanikArr[j].x == gazan.x && gazanikArr[j].y == gazan.y) {
+          return true;
+        }
+      }
+      return false;
   }
 }

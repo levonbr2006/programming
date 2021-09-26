@@ -11,8 +11,6 @@ let random = require('./modules/random');
 grassArr = [];
 grassEaterArr = [];
 atomicBombArr = [];
-atArr = [];
-atomicArr = [];
 gazanikArr = [];
 bombFinderArr = [];
 matrix = [];
@@ -90,7 +88,7 @@ function creatingObjects() {
             }
             else if (matrix[y][x] == 4) {
                 var atomicBomb = new AtomicBomb (x, y);
-                atomicArr.push(atomicBomb);
+                atomicBombArr.push(atomicBomb);
             }
             else if (matrix[y][x] == 3) {
                 var gazanik = new Gazanik(x, y);
@@ -107,18 +105,21 @@ creatingObjects();
 
 function game() {
     if (grassArr[0] !== undefined) {
-        for (var i in grassArr) {
+        for (let i in grassArr) {
             grassArr[i].mul();
         }
     }
+    // if (grassArr[0] !== undefined) {
+    //     grassArr.mul();
+    // }
     if (grassEaterArr[0] !== undefined) {
-        for (var i in grassEaterArr) {
+        for (let i in grassEaterArr) {
             grassEaterArr[i].eat();
 
         }
     }
     if (gazanikArr[0] !== undefined) {
-        for (var i in gazanikArr) {
+        for (let i in gazanikArr) {
             gazanikArr[i].eat();
         }
     }/*
@@ -132,24 +133,31 @@ function game() {
         }
     }*/
     if (bombFinderArr[0] !== undefined) {
-        for (var i in bombFinderArr) {
+        for (let i in bombFinderArr) {
             bombFinderArr[i].eat();
         }
     }
-        if (gazanikArr.length >= 14 ) {
-            var bomb = new AtomicBomb()
-            bomb.boom()
-            for(let i in  atomicBombArr){
-                atomicBombArr[i].gmp()
-            }
+    if (gazanikArr.length >= 14 ) {
+        var bomb = new AtomicBomb()
+        bomb.boom()
+        for(let i in  atomicBombArr){
+            atomicBombArr[i].gmp()
         }
-
+    }
+    // if (gazanikArr.length >= 14 ) {
+    //     var bomb = new AtomicBomb()
+    //     bomb.boom()
+    //     //bomb.gmp()
+    //     //atomicBombArr.gmp()
+    // }
     //! Object to send
     let sendData = {
         matrix: matrix,
         grassCounter: grassArr.length,
         grassEaterCounter: grassEaterArr.length,
-        bombCounter: atomicBombArr.length
+        gazanCounter:gazanikArr.length,
+        atomicCounter: atomicBombArr.length,
+        bombFinder: bombFinderArr.length,
     }
 
     //! Send data over the socket to clients who listens "data"

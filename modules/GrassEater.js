@@ -1,6 +1,10 @@
 var LiveForm = require("./LiveForm");
-var random = require("./random.js");
-
+var Grass = require("./Grass.js");
+var GrassEater = require("./GrassEater.js");
+var AtomicBomb = require("./AtomicBomb.js");
+var Gazanik = require("./Gazanik.js");
+var BombFinder = require("./bombFinder.js");
+let random = require('./random');
 
 
 module.exports = class GrassEater extends LiveForm {
@@ -31,10 +35,13 @@ module.exports = class GrassEater extends LiveForm {
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];
-            matrix[y][x] = 2;
             let grassEater = new GrassEater(x, y);
-            grassEaterArr.push(grassEater);
-            this.life = 5;
+            if (!this.ifExists(grassEater))
+            {
+                matrix[y][x] = 2;
+                grassEaterArr.push(grassEater);
+                this.life = 5;
+            }
         }
     }
     eat() {
@@ -68,20 +75,34 @@ module.exports = class GrassEater extends LiveForm {
     }
     move() {
         this.life--;
-        let emptyCells = this.chooseCell(0);
+        let emptyCells = []
+        emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
+        if(newCell)
+        {
+            var x = newCell[0];
+            var y = newCell[1];
+            var newGrassEater = new GrassEater(x,y);
+        }
 
-        if (newCell) {
-            let x = newCell[0];
-            let y = newCell[1];
+        if (newCell && !this.ifExists(newGrassEater) && this.life > 0) {
             matrix[y][x] = 2;
             matrix[this.y][this.x] = 0;
             this.y = y;
             this.x = x;
+            for(let i in grassEaterArr)
+            {
+                if(grassEaterArr[i].x == this.x && grassEaterArr[i].y == this.y)
+                {
+                    grassEaterArr[i].x == x;
+                    grassEaterArr[i].y == y;
+                }
+            }
         }
-        if (this.life < 0) {
+        if (this.life <= 0) {
             this.die();
         }
+        
     }
     die() {
         matrix[this.y][this.x] = 0;
@@ -92,4 +113,13 @@ module.exports = class GrassEater extends LiveForm {
             }
         }
     }
+    ifExists(grass)
+    {
+        for (let j = 0; j < grassEaterArr.length; j++) {
+          if (grassEaterArr[j].x == grass.x && grassEaterArr[j].y == grass.y) {
+            return true;
+          }
+        }
+        return false;
+    }      
 }

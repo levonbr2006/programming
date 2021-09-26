@@ -1,4 +1,10 @@
 var LiveForm = require("./LiveForm");
+var Grass = require("./Grass.js");
+var GrassEater = require("./GrassEater.js");
+var AtomicBomb = require("./AtomicBomb.js");
+var Gazanik = require("./Gazanik.js");
+var BombFinder = require("./bombFinder.js");
+let random = require('./random');
 
 module.exports = class BombFinder extends LiveForm{
   constructor(x,y, index){
@@ -39,8 +45,9 @@ module.exports = class BombFinder extends LiveForm{
         matrix[this.x][this.y] = 0;
       } else if (matrix[newX][newY] == 1) {
         matrix[newX][newY] = 5
-        matrix[this.x][this.y] = 1;
+        matrix[this.x][this.y] = 1;        
       }
+      
       this.x = newX
       this.y = newY
     }
@@ -56,9 +63,9 @@ module.exports = class BombFinder extends LiveForm{
       let newY = newCell[1];
       matrix[newX][newY] = 5;
       matrix[this.x][this.y] = 0;
-      for (let i in atArr) {
-        if (atArr[i].x == newX && atArr[i].y == newY) {
-          atArr.splice(i, 1);
+      for (let i in atomicBombArr) {
+        if (atomicBombArr[i].x == newX && atomicBombArr[i].y == newY) {
+          atomicBombArr.splice(i, 1);
         }
       }
       this.x = newX

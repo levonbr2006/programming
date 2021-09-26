@@ -1,6 +1,10 @@
 var LiveForm = require("./LiveForm");
-var random = require("./random");
-
+var Grass = require("./Grass.js");
+var GrassEater = require("./GrassEater.js");
+var AtomicBomb = require("./AtomicBomb.js");
+var Gazanik = require("./Gazanik.js");
+var BombFinder = require("./bombFinder.js");
+let random = require('./random');
 
 module.exports = class Grass extends LiveForm {
     constructor(x, y) {
@@ -33,8 +37,19 @@ module.exports = class Grass extends LiveForm {
             let y = newCell[1];
             matrix[y][x] = 1;
             let grass = new Grass(x, y);
-            grassArr.push(grass);
-            this.multiply = 0;
+            if (!this.ifExists(grass))
+            {
+                grassArr.push(grass);
+                this.multiply = 0;
+            }
         }
     }
+    ifExists(grass){
+        for (let j = 0; j < grassArr.length; j++) {
+          if (grassArr[j].x == grass.x && grassArr[j].y == grass.y) {
+            return true;
+          }
+        }
+        return false;
+      }    
 }
