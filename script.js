@@ -17,7 +17,7 @@ function setup() {
 
     function drawCreatures(data) {
         console.log(data);
-        //! after getting data pass it to matrix variable
+        //! after getting data pass it to matrix variabl
         matrix = data.matrix;
         grassCountElement.innerText = data.grassCounter;
         grassEaterCountElement.innerText = data.grassEaterCounter;
