@@ -14,6 +14,7 @@ atomicBombArr = [];
 gazanikArr = [];
 bombFinderArr = [];
 matrix = [];
+let eaterCounterCord = [];
 //! Setting global arrays  -- END
 
 
@@ -144,6 +145,19 @@ function game() {
             atomicBombArr[i].gmp()
         }
     }
+    var count2 = 0;
+    for(let i = 0; i < matrix[0].length; i++)
+    {
+        for(let j = 0; j < matrix.length; j++)
+        {
+            if(matrix[i][j] == 2)
+            {
+                count2++;
+            }
+        }
+        
+    }
+    
     // if (gazanikArr.length >= 14 ) {
     //     var bomb = new AtomicBomb()
     //     bomb.boom()
@@ -158,6 +172,8 @@ function game() {
         gazanCounter:gazanikArr.length,
         atomicCounter: atomicBombArr.length,
         bombFinder: bombFinderArr.length,
+        count2:count2,
+        eaterCounterCord:grassEaterArr,
     }
 
     //! Send data over the socket to clients who listens "data"

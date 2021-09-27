@@ -47,16 +47,21 @@ module.exports = class GrassEater extends LiveForm {
     eat() {
         let emptyCells = this.chooseCell(1);
         let newCell = random(emptyCells);
-
-        if (newCell) {
+        console.log(this.life + "life")
+        if(this.life <= 0)
+        {
+            this.die;
+        }
+        else if (newCell)
+        {
 
             this.life++;
             let x = newCell[0];
             let y = newCell[1];
-
+            //console.log(matrix + "1")
             matrix[y][x] = 2;
             matrix[this.y][this.x] = 0;
-
+            //console.log(matrix + "2")
             for (let i in grassArr) {
                 if (grassArr[i].x == x && grassArr[i].y == y) {
                     grassArr.splice(i, 1)
@@ -83,21 +88,28 @@ module.exports = class GrassEater extends LiveForm {
             var x = newCell[0];
             var y = newCell[1];
             var newGrassEater = new GrassEater(x,y);
+            //console.log(x, y)
         }
+        //console.log('end')
 
         if (newCell && !this.ifExists(newGrassEater) && this.life > 0) {
             matrix[y][x] = 2;
             matrix[this.y][this.x] = 0;
-            this.y = y;
-            this.x = x;
             for(let i in grassEaterArr)
             {
                 if(grassEaterArr[i].x == this.x && grassEaterArr[i].y == this.y)
                 {
-                    grassEaterArr[i].x == x;
-                    grassEaterArr[i].y == y;
+                    grassEaterArr[i].x = x;
+                    grassEaterArr[i].y = y;
                 }
             }
+            this.y = y;
+            this.x = x;
+        }
+        else
+        {
+            console.log(this.x, this.y)
+            console.log('endf')
         }
         if (this.life <= 0) {
             this.die();

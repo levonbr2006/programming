@@ -18,13 +18,18 @@ function setup() {
 
     function drawCreatures(data) {
         console.log(data);
-        //! after getting data pass it to matrix variabl
+        console.log(data.count2);
+        for(let i in data.eaterCounterCord)
+        {
+            console.log(data.eaterCounterCord[i] + "something");
+        }//! after getting data pass it to matrix variabl
         matrix = data.matrix;
         grassCountElement.innerText = data.grassCounter;
         grassEaterCountElement.innerText = data.grassEaterCounter;
         gazanCounter.innerText = data.gazanCounter;
         bombCounter.innerHTML = data.atomicCounter;
         bombFinder.innerHTML = data.bombFinder;
+
         //! Every time it creates new Canvas woth new matrix size
         createCanvas(matrix[0].length * side, matrix.length * side)
         //! clearing background by setting it to new grey color
