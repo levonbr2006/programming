@@ -47,7 +47,7 @@ module.exports = class GrassEater extends LiveForm {
     eat() {
         let emptyCells = this.chooseCell(1);
         let newCell = random(emptyCells);
-        console.log(this.life + "life")
+        //console.log(this.life + "life")
         if(this.life <= 0)
         {
             this.die;
@@ -106,11 +106,11 @@ module.exports = class GrassEater extends LiveForm {
             this.y = y;
             this.x = x;
         }
-        else
-        {
+        //else
+        /*{
             console.log(this.x, this.y)
             console.log('endf')
-        }
+        }*/
         if (this.life <= 0) {
             this.die();
         }

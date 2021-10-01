@@ -59,7 +59,6 @@ matrixGenerator(20, 10, 10, 5 , 15, 3);
 //! Creating MATRIX -- END
 
 
-
 //! SERVER STUFF  --  START
 // const bombFinder = require("./modules/bombFinder.js");
 var express = require('express');
@@ -72,7 +71,24 @@ app.get('/', function (req, res) {
 });
 server.listen(3000);
 //! SERVER STUFF END  --  END
+var weath = "winter"
 
+function weather() {
+    if (weath == "winter") {
+        weath = "spring"
+    }
+    else if (weath == "spring") {
+        weath = "summer"
+    }
+    else if (weath == "summer") {
+        weath = "autumn"
+    }
+    else if (weath == "autumn") {
+        weath = "winter"
+    }
+    io.sockets.emit('weather', weath)
+}
+setInterval(weather, 5000);
 
 
 function creatingObjects() {
