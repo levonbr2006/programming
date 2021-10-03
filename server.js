@@ -1,7 +1,7 @@
 var weath = "winter"
 
-Grass = require("./modules/Grass.js");
-GrassEater = require("./modules/GrassEater.js");
+var Grass = require("./modules/Grass.js");
+var GrassEater = require("./modules/GrassEater.js");
 var AtomicBomb = require("./modules/AtomicBomb.js");
 var Gazanik = require("./modules/Gazanik.js");
 var BombFinder = require("./modules/bombFinder.js");
@@ -38,11 +38,14 @@ function matrixGenerator(matrixSize, grass, grassEater, atomicBomb, gazanik, bom
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 2;
+        //newGrassEater = new GrassEater(customX, customY)
+        //grassEaterArr.push(newGrassEater)
     }
     for (let i = 0; i < atomicBomb; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 4;
+
     }
     for (let i = 0; i < gazanik; i++) {
         let customX = Math.floor(random(matrixSize));
@@ -63,6 +66,7 @@ matrixGenerator(20, 10, 10, 5 , 15, 3);
 //! SERVER STUFF  --  START
 // const bombFinder = require("./modules/bombFinder.js");
 var express = require('express');
+//const Grass = require("./modules/Grass.js");
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
