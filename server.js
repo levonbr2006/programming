@@ -1,5 +1,7 @@
-var Grass = require("./modules/Grass.js");
-var GrassEater = require("./modules/GrassEater.js");
+var weath = "winter"
+
+Grass = require("./modules/Grass.js");
+GrassEater = require("./modules/GrassEater.js");
 var AtomicBomb = require("./modules/AtomicBomb.js");
 var Gazanik = require("./modules/Gazanik.js");
 var BombFinder = require("./modules/bombFinder.js");
@@ -14,7 +16,6 @@ atomicBombArr = [];
 gazanikArr = [];
 bombFinderArr = [];
 matrix = [];
-let eaterCounterCord = [];
 //! Setting global arrays  -- END
 
 
@@ -71,7 +72,6 @@ app.get('/', function (req, res) {
 });
 server.listen(3000);
 //! SERVER STUFF END  --  END
-var weath = "winter"
 
 function weather() {
     if (weath == "winter") {
