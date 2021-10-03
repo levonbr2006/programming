@@ -28,7 +28,6 @@ module.exports = class Grass extends LiveForm {
         return super.chooseCell(character);
     }
     mul() {
-        this.multiply++;
         let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
         
@@ -43,6 +42,7 @@ module.exports = class Grass extends LiveForm {
                 this.multiply = 0;
             }
         }
+        this.multiply++;
     }
     ifExists(grass){
         for (let j = 0; j < grassArr.length; j++) {

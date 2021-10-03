@@ -1,6 +1,6 @@
 var socket = io(); 
 var side = 30;
-
+var weath = 'winter'
 function setup() {
     createCanvas(20 * side, 20 * side)
     //! clearing background by setting it to new grey color
@@ -62,19 +62,29 @@ function drawCreatures(data) {
                     fill("#4dffa6")
                 }
                 rect(j * side, i * side, side, side);
-            } else if (matrix[i][j] == 2) {
+            } 
+            else if (matrix[i][j] == 2) 
+            {
                 fill("orange");
                 rect(j * side, i * side, side, side);
-            } else if (matrix[i][j] == 0) {
+            } 
+            else if (matrix[i][j] == 0) 
+            {
                 fill('#acacac');
                 rect(j * side, i * side, side, side);
-            } else if (matrix[i][j] == 3) {
+            } 
+            else if (matrix[i][j] == 3) 
+            {
                 fill('red');
                 rect(j * side, i * side, side, side);
-            } else if (matrix[i][j] == 4) {
+            } 
+            else if (matrix[i][j] == 4) 
+            {
                 fill('blue');
                 rect(j * side, i * side, side, side);
-            } else if (matrix[i][j] == 5) {
+            } 
+            else if (matrix[i][j] == 5) 
+            {
                 fill('yellow');
                 rect(j * side, i * side, side, side);
             }

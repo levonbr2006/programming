@@ -99,24 +99,24 @@ function creatingObjects() {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
-                var grass = new Grass(x, y);
+                var grass = new Grass(y, x);
                 grassArr.push(grass);
             }
             else if (matrix[y][x] == 2) {
-                var grassEater = new GrassEater(x, y);
+                var grassEater = new GrassEater(y, x);
                 grassEaterArr.push(grassEater);
                 
             }
             else if (matrix[y][x] == 4) {
-                var atomicBomb = new AtomicBomb (x, y);
+                var atomicBomb = new AtomicBomb (y, x);
                 atomicBombArr.push(atomicBomb);
             }
             else if (matrix[y][x] == 3) {
-                var gazanik = new Gazanik(x, y);
+                var gazanik = new Gazanik(y, x);
                 gazanikArr.push(gazanik);
             }
             else if (matrix[y][x] == 5) {
-                var bombFinder = new BombFinder(x, y);
+                var bombFinder = new BombFinder(y, x);
                 bombFinderArr.push(bombFinder);
             }
         }
@@ -125,13 +125,26 @@ function creatingObjects() {
 creatingObjects();
 
 function game() {
+    //creatingObjects()
+ 
     if (grassArr[0] !== undefined) {
         for (let i in grassArr) {
             grassArr[i].mul();
         }
     }
-    // if (grassArr[0] !== undefined) {
-    //     grassArr.mul();
+    //if (grassArr[0] !== undefined) {
+    //    grassArr.mul();
+    //}
+    // if (grassArr[0] !== undefined)
+    // {
+    //     for(let i in matrix[0])
+    //     {
+    //         for(let j in matrix)
+    //         {
+    //             if(matrix[i][j] == 1)
+    //             {}
+    //         }
+    //     }
     // }
     if (grassEaterArr[0] !== undefined) {
         for (let i in grassEaterArr) {
@@ -199,7 +212,5 @@ function game() {
     //! Send data over the socket to clients who listens "data"
     io.sockets.emit("data", sendData);
 }
-
-
 
 setInterval(game, 1000)
