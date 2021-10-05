@@ -13,14 +13,15 @@ module.exports = class AtomicBomb extends LivingCreature {
     let i = Math.floor(Math.random() * gazanikArr.length) // {x, y}
     this.x = gazanikArr[i].x
     this.y = gazanikArr[i].y
+
     matrix[this.x][this.y] = 4
     gazanikArr.splice(i, 1)
-    // console.log('We lost "Gazanik" in cordinates {x:' + this.x + ',y:' + this.y + '}')
+
     let bomb1 = new AtomicBomb(this.x, this.y)
     atomicBombArr.push(bomb1)
   }
 
-  ifExists(bomb){
+  ifExists(bomb) {
     for (let j = 0; j < atomicBombArr.length; j++) {
       if (atomicBombArr[j].x == bomb.x && atomicBombArr[j].y == bomb.y) {
         return true;
@@ -41,16 +42,19 @@ module.exports = class AtomicBomb extends LivingCreature {
         if (!this.ifExists(bomb1)) {
           atomicBombArr.push(bomb1)
         }
+
         for (let j = 0; j < grassArr.length; j++) {
           if (grassArr[j].x == x && grassArr[j].y == y) {
             grassArr.splice(j, 1);
           }
         }
+
         for (let j = 0; j < grassEaterArr.length; j++) {
           if (grassEaterArr[j].x == x && grassEaterArr[j].y == y) {
             grassEaterArr.splice(j, 1);
           }
         }
+
         for (let j = 0; j < gazanikArr.length; j++) {
           if (gazanikArr[j].x == x && gazanikArr[j].y == y) {
             gazanikArr.splice(j, 1);

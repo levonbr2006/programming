@@ -58,7 +58,7 @@ function matrixGenerator(matrixSize, grass, grassEater, atomicBomb, gazanik, bom
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(20, 10, 10, 5 , 15, 3);
+matrixGenerator(20, 20, 10, 5, 12, 3);
 //console.log(matrix)
 //! Creating MATRIX -- END
 
@@ -96,27 +96,28 @@ setInterval(weather, 5000);
 
 
 function creatingObjects() {
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 1) {
-                var grass = new Grass(y, x);
+    for (var x = 0; x < matrix.length; x++) {
+        for (var y = 0; y < matrix[x].length; y++) {
+
+            if (matrix[x][y] == 1) {
+                var grass = new Grass(x, y);
                 grassArr.push(grass);
             }
-            else if (matrix[y][x] == 2) {
-                var grassEater = new GrassEater(y, x);
+            else if (matrix[x][y] == 2) {
+                var grassEater = new GrassEater(x, y);
                 grassEaterArr.push(grassEater);
-                
+
             }
-            else if (matrix[y][x] == 4) {
-                var atomicBomb = new AtomicBomb (y, x);
-                atomicBombArr.push(atomicBomb);
-            }
-            else if (matrix[y][x] == 3) {
-                var gazanik = new Gazanik(y, x);
+            else if (matrix[x][y] == 3) {
+                var gazanik = new Gazanik(x, y);
                 gazanikArr.push(gazanik);
             }
-            else if (matrix[y][x] == 5) {
-                var bombFinder = new BombFinder(y, x);
+            else if (matrix[x][y] == 4) {
+                var atomicBomb = new AtomicBomb(x, y);
+                atomicBombArr.push(atomicBomb);
+            }
+            else if (matrix[x][y] == 5) {
+                var bombFinder = new BombFinder(x, y);
                 bombFinderArr.push(bombFinder);
             }
         }
@@ -126,26 +127,12 @@ creatingObjects();
 
 function game() {
     //creatingObjects()
- 
+
     if (grassArr[0] !== undefined) {
         for (let i in grassArr) {
             grassArr[i].mul();
         }
     }
-    //if (grassArr[0] !== undefined) {
-    //    grassArr.mul();
-    //}
-    // if (grassArr[0] !== undefined)
-    // {
-    //     for(let i in matrix[0])
-    //     {
-    //         for(let j in matrix)
-    //         {
-    //             if(matrix[i][j] == 1)
-    //             {}
-    //         }
-    //     }
-    // }
     if (grassEaterArr[0] !== undefined) {
         for (let i in grassEaterArr) {
             grassEaterArr[i].eat();
@@ -156,57 +143,28 @@ function game() {
         for (let i in gazanikArr) {
             gazanikArr[i].eat();
         }
-    }/*
-    if (atomicArr[0] !== undefined) {
-        for (var i in atomicArr) {
-            //atomicArr[i].boom();
-            atomicBombArr[i].gmp();
-            //gazanikArr[i].move();
-            //gazanikArr[i].die();
-            //console.log(gazanikArr)
-        }
-    }*/
+    }
     if (bombFinderArr[0] !== undefined) {
         for (let i in bombFinderArr) {
             bombFinderArr[i].eat();
         }
     }
-    if (gazanikArr.length >= 14 ) {
+    if (gazanikArr.length >= 14) {
         var bomb = new AtomicBomb()
         bomb.boom()
-        for(let i in  atomicBombArr){
+        for (let i in atomicBombArr) {
             atomicBombArr[i].gmp()
         }
     }
-    var count2 = 0;
-    for(let i = 0; i < matrix[0].length; i++)
-    {
-        for(let j = 0; j < matrix.length; j++)
-        {
-            if(matrix[i][j] == 2)
-            {
-                count2++;
-            }
-        }
-        
-    }
-    
-    // if (gazanikArr.length >= 14 ) {
-    //     var bomb = new AtomicBomb()
-    //     bomb.boom()
-    //     //bomb.gmp()
-    //     //atomicBombArr.gmp()
-    // }
-    //! Object to send
+
     let sendData = {
         matrix: matrix,
         grassCounter: grassArr.length,
         grassEaterCounter: grassEaterArr.length,
-        gazanCounter:gazanikArr.length,
+        gazanCounter: gazanikArr.length,
         atomicCounter: atomicBombArr.length,
         bombFinder: bombFinderArr.length,
-        count2:count2,
-        eaterCounterCord:grassEaterArr,
+        eaterCounterCord: grassEaterArr,
     }
 
     //! Send data over the socket to clients who listens "data"

@@ -28,28 +28,33 @@ module.exports = class Grass extends LiveForm {
         return super.chooseCell(character);
     }
     mul() {
-        let emptyCells = this.chooseCell(0);
-        let newCell = random(emptyCells);
-        
-        if (newCell && this.multiply >= 2) {
-            let x = newCell[0];
-            let y = newCell[1];
-            matrix[y][x] = 1;
-            let grass = new Grass(x, y);
-            if (!this.ifExists(grass))
-            {
-                grassArr.push(grass);
-                this.multiply = 0;
+        if (this.multiply >= 2) {
+
+            let emptyCells = this.chooseCell(0);
+            let newCell = random(emptyCells);
+
+            if (newCell) {
+
+                let x = newCell[0];
+                let y = newCell[1];
+
+                matrix[x][y] = 1;
+                let grass = new Grass(x, y);
+                if (!this.ifExists(grass)) {
+
+                    grassArr.push(grass);
+                    this.multiply = 0;
+                }
             }
         }
         this.multiply++;
     }
-    ifExists(grass){
+    ifExists(grass) {
         for (let j = 0; j < grassArr.length; j++) {
-          if (grassArr[j].x == grass.x && grassArr[j].y == grass.y) {
-            return true;
-          }
+            if (grassArr[j].x == grass.x && grassArr[j].y == grass.y) {
+                return true;
+            }
         }
         return false;
-      }    
+    }
 }
